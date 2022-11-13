@@ -1,0 +1,26 @@
+{
+  "name": "examai/examai",
+  "type": "project",
+  "license": "Powred by ExamAI Teams",
+  "autoload": {
+    "psr-4": {
+      "Examai\\Examai\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "files": [
+      "helper/database.php",
+      "helper/config.php",
+      "helper/lang.php"
+    ]
+  },
+  "require": {
+    "phpoffice/phpword": "^0.18.3",
+    "postal/postal": "^1.0",
+    "dompdf/dompdf": "^2.0"
+  },
+  "scripts": {
+    "start": "php index.php",
+    "test": "php test/crud_test_all_table.php"
+  }
+}
