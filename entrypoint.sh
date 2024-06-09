@@ -17,4 +17,4 @@ else
     start_mysql
 fi
 
-exec php-fpm
+exec php -S localhost:8080

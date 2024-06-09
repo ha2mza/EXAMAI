@@ -1,5 +1,5 @@
 # Use the official PHP 7.4 FPM image based on Debian Buster
-FROM php:7.4-fpm-buster
+FROM php:7.4-buster
 
 # Update and install required dependencies
 RUN apt-get update && apt-get install -y \
