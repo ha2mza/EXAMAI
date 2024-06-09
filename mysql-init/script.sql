@@ -6,6 +6,7 @@ CREATE DATABASE IF NOT EXISTS examai;
 USE examai;
 
 
+
 SET time_zone = "+00:00";
 
 CREATE TABLE `enseignant` (
@@ -121,37 +122,7 @@ CREATE TABLE `candidat_repondre` (
                                      FOREIGN KEY (`ID_EXAMEN`) REFERENCES `examen` (`ID_EXAMEN`)
 );
 
-CREATE VIEW `candidat_repd` AS
-SELECT `candidat_repondre`.`id` AS `id`,
-       `candidat_repondre`.`ID_CANDIDAT` AS `ID_CANDIDAT`,
-       `candidat_repondre`.`ID_QUESTION` AS `ID_QUESTION`,
-       `candidat_repondre`.`ID_EXAMEN` AS `ID_EXAMEN`,
-       `candidat_repondre`.`REPONDRE` AS `REPONDRE`,
-       `opt`.`reponse` AS `reponse`
-FROM (`candidat_repondre`
-         JOIN JSON_TABLE(`candidat_repondre`.`REPONDRE`, '$[*]' COLUMNS (`reponse` int(11) PATH '$' DEFAULT '' ON EMPTY DEFAULT 'N' ON ERROR)) `opt`);
 
-CREATE VIEW `options` AS
-SELECT `question`.`ID_QUESTION` AS `ID_QUESTION`,
-       `option`.`rowid` AS `rowid`,
-       `option`.`titre` AS `titre`,
-       `option`.`correct` AS `correct`
-FROM (`question`
-         JOIN JSON_TABLE(`question`.`CHOIX`, '$[*]' COLUMNS (`rowid` int(11) PATH '$.index', `titre` varchar(100) PATH '$.titre' DEFAULT '' ON EMPTY DEFAULT 'N' ON ERROR, `correct` tinyint(1) PATH '$.correct')) `option`);
 
-CREATE VIEW `reponse` AS
-SELECT `candidat_repondre`.`id` AS `id`,
-       `candidat_repondre`.`ID_CANDIDAT` AS `ID_CANDIDAT`,
-       `candidat_repondre`.`ID_QUESTION` AS `ID_QUESTION`,
-       `candidat_repondre`.`ID_EXAMEN` AS `ID_EXAMEN`,
-       `candidat_repondre`.`REPONDRE` AS `REPONDRE`,
-       `option_correct`.`rep` AS `rep`,
-       `option_correct`.`rep`= `candidat_repondre`.`REPONDRE` AS `correct`
-FROM (`candidat_repondre`
-         JOIN (SELECT `options`.`ID_QUESTION` AS `ID_QUESTION`,
-                      CONCAT('[', COALESCE(GROUP_CONCAT(CONCAT('"', `options`.`rowid` ,'"') ORDER BY `options`.`rowid` DESC SEPARATOR ','), ''), ']') AS `rep`
-               FROM `options`
-               WHERE `options`.`correct` = 1
-               GROUP BY `options`.`ID_QUESTION`
-               ORDER BY `options`.`rowid`) `option_correct`)
-WHERE `option_correct`.`ID_QUESTION` = `candidat_repondre`.`ID_QUESTION`;
+
+
