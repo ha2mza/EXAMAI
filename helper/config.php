@@ -3,8 +3,14 @@
 case 1: when require some file need a ROOT define
 case 2: when need load a spécifique file or a spécifique url need  DOMAIN define
 */
-if (!defined('DOMAIN'))
-    define('DOMAIN', 'http://localhost:3000');
+
+if (!defined('DOMAIN')) {
+    // Get the server's IP address
+    $serverIp = $_SERVER['SERVER_ADDR'];
+    // Define the domain constant with the current IP address and port
+    define('DOMAIN', 'http://' . $serverIp . ':3500');
+}
+
 if (!defined('ROOT'))
     define('ROOT', $_SERVER['DOCUMENT_ROOT']);
 
