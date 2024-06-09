@@ -44,9 +44,6 @@ RUN chown -R mysql:mysql /var/lib/mysql  /docker-entrypoint-initdb.d/init.sql
 # Expose MySQL port
 EXPOSE 3306
 
-# Expose PHP-FPM port
-EXPOSE 9000
-
 # Set the working directory
 WORKDIR /app
 
