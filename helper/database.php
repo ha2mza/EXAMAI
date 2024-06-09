@@ -7,7 +7,7 @@ class Connection
 
     public static function instance()
     {
-        $host = 'localhost';
+        $host = '127.0.0.1';
         $db = Connection::$db;
         $user = 'root';
         $pass = 'password';
