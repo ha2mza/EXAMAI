@@ -8,7 +8,7 @@ if (!defined('DOMAIN')) {
     // Get the server's IP address
     $serverIp = $_SERVER['SERVER_ADDR'];
     // Define the domain constant with the current IP address and port
-    define('DOMAIN', 'http://' . $serverIp . ':3500');
+    define('DOMAIN', '');
 }
 
 if (!defined('ROOT'))
