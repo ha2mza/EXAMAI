@@ -19,7 +19,7 @@ class Connection
                 Connection::$_instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 Connection::$_instance->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
             } catch (PDOException $e) {
-                throw new Exception("Failed Connecting $host:$user:$db");
+                throw new Exception("Failed Connecting $host:$user:$db " . $e->getMessage());
             }
         }
 
