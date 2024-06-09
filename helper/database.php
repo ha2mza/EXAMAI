@@ -10,7 +10,7 @@ class Connection
         $host = 'localhost';
         $db = Connection::$db;
         $user = 'root';
-        $pass = '';
+        $pass = 'password';
         $charset = 'utf8mb4';
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
         if (Connection::$_instance === null) {

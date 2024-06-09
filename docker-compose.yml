@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  web:
+    image: bitnami/apache
+    restart: always
+    volumes:
+      - ./php-project:/app
+      - ./vhosts:/opt/bitnami/apache/conf/vhosts/
+    networks:
+      - network_tp3
+    ports:
+      - "3500:8080"
+    depends_on:
+      - php
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 50M
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./php-project:/app
+    networks:
+      - network_tp3
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 50M
+
+
+volumes:
+  db_data:
+
+networks:
+  network_tp3:
